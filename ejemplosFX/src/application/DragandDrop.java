@@ -36,6 +36,21 @@ public class DragandDrop {
 	 * @param root- recibe el Pane donde se debe permitir soltar el objeto del drag and drop 
 	 * @param second- es el pane (VBox) de la ubicacion actual del objeto del drag and drop
 	 */
+	/**
+	 * @param image
+	 * @param root
+	 * @param second
+	 */
+	/**
+	 * @param image
+	 * @param root
+	 * @param second
+	 */
+	/**
+	 * @param image
+	 * @param root
+	 * @param second
+	 */
 	public static void drag(ImageView image, Pane root, VBox second){
 		
 		image.setOnDragDetected(new EventHandler <MouseEvent> (){
@@ -113,6 +128,7 @@ public class DragandDrop {
 				ImageView nueva= new ImageView();
 				nueva.setImage(drag.getImage());
 				boolean succes= false; //indicador del proceso
+				
 				if(drag.hasImage()) {
 					Connection make= new Connection();
 					nueva.setOnMousePressed(MousePressedEventHandler);
