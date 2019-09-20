@@ -32,7 +32,7 @@ public class DragandDrop {
 	 * Este es el metodo que realiza el drag and drop y unicamente se podra realizar
 	 * un drag and drop a un objeto de tipo ImageView
 	 * 
-	 * @param img1- es el parametro que recibe unicamente el ImageView al que se hace la referencia
+	 * @param image- es el parametro que recibe unicamente el ImageView al que se hace la referencia
 	 * @param root- recibe el Pane donde se debe permitir soltar el objeto del drag and drop 
 	 * @param second- es el pane (VBox) de la ubicacion actual del objeto del drag and drop
 	 */
@@ -84,7 +84,7 @@ public class DragandDrop {
 			}
 		});
 		
-		//make the root of a color if the object is out of it
+		//crea la nueva imagen en el root
 		root.setOnDragExited(new EventHandler<DragEvent>() {
 			/**
 			 *Este metodo junto con el setOnDragEntered lo que hace es volver nuevamente
@@ -114,8 +114,12 @@ public class DragandDrop {
 				nueva.setImage(drag.getImage());
 				boolean succes= false; //indicador del proceso
 				if(drag.hasImage()) {
+					Connection make= new Connection();
 					nueva.setOnMousePressed(MousePressedEventHandler);
 					nueva.setOnMouseDragged(MouseDraggedEventHandler);
+					
+					make.inicialize(nueva, root);
+					
 					
 					Imagelist.add(nueva);
 					
