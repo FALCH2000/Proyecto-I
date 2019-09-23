@@ -1,11 +1,11 @@
 package application;
 
-import java.util.ArrayList;
 import java.util.List;
 
 //import javax.lang.model.type.IntersectionType; 
 
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
@@ -14,6 +14,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+import logic.Factory;
+import logic.Lista;
+import logic.Nodes;
 
 /**
  * @author fatimaleiva
@@ -24,9 +28,10 @@ import javafx.scene.layout.VBox;
  */
 public class DragandDrop {
 	
+	protected static String Id = null;
 	static double PosX, PosY;
     static double newPosX, newPosY;
-    static List<ImageView> Imagelist= new ArrayList<ImageView>(); 
+    
 	
 	/**
 	 * Este es el metodo que realiza el drag and drop y unicamente se podra realizar
@@ -35,135 +40,135 @@ public class DragandDrop {
 	 * @param image- es el parametro que recibe unicamente el ImageView al que se hace la referencia
 	 * @param root- recibe el Pane donde se debe permitir soltar el objeto del drag and drop 
 	 * @param second- es el pane (VBox) de la ubicacion actual del objeto del drag and drop
+	 * 
 	 */
-	/**
-	 * @param image
-	 * @param root
-	 * @param second
-	 */
-	/**
-	 * @param image
-	 * @param root
-	 * @param second
-	 */
-	/**
-	 * @param image
-	 * @param root
-	 * @param second
-	 */
-	public static void drag(ImageView image, Pane root, VBox second){
-		
-		image.setOnDragDetected(new EventHandler <MouseEvent> (){
-			/**
-			 *Este metodo es el que inicia con el drag and drop de la imagen
-			 *y se establece el tipo de transferencia que se va a permitir
-			 *en este caso va a ser copiar la imagen
-			 */
-			public void handle(MouseEvent event) {
-				Dragboard drag= image.startDragAndDrop(TransferMode.COPY);
-				
-				//Anadir el contenido de la imagen a copiar al nuevo objeto
-				ClipboardContent content= new ClipboardContent();
-				content.putImage(image.getImage());
-				drag.setContent(content);
-								
-				event.consume();
-			}
-		});
-		
-		root.setOnDragOver(new EventHandler <DragEvent>() {
-			/**
-			 *Este metodo establece el lugar o la fuente en donde el nuevo
-			 *objeto puede ser soltado
-			 */
-			public void handle(DragEvent event) {
-				if(event.getGestureSource() != root && event.getDragboard().hasImage() 
-						&& event.getTarget()!= second) { //para saber donde se puede poner la imagen
+	public static void drag(Pane root, VBox second, List<ImageView> images){
+		for(ImageView image: images) {
+			
+			image.setOnDragDetected(new EventHandler <MouseEvent> (){
+				/**
+				 *Este metodo es el que inicia con el drag and drop de la imagen
+				 *y se establece el tipo de transferencia que se va a permitir
+				 *en este caso va a ser copiar la imagen
+				 */
+				public void handle(MouseEvent event) {
 					
-					event.acceptTransferModes(TransferMode.COPY);
+					Dragboard drag= image.startDragAndDrop(TransferMode.COPY);
+					
+					//System.out.println(image.getId());
+					//Anadir el contenido de la imagen a copiar al nuevo objeto
+					ClipboardContent content= new ClipboardContent();
+					content.putImage(image.getImage());
+					drag.setContent(content);
+					Id= image.getId(); 
+									
+					event.consume();
 				}
-				event.consume();
-			}
-		});
-		
-		root.setOnDragEntered(new EventHandler <DragEvent>() {
-			/**
-			 *Metodo principalmente de disenno y lo que hace es cambiar el color de la ruta
-			 *donde el objeto puede ser soltado para guiar al usuario
-			 */
-			public void handle(DragEvent event) {
-				if(event.getGestureSource() != root && event.getDragboard().hasImage()) {
-					root.setStyle("-fx-background-color: green");
-				}
-				event.consume();
-			}
-		});
-		
-		//crea la nueva imagen en el root
-		root.setOnDragExited(new EventHandler<DragEvent>() {
-			/**
-			 *Este metodo junto con el setOnDragEntered lo que hace es volver nuevamente
-			 *la pantalla donde el objeto puede ser soltado a su color original en dos ocasiones
-			 *La primera es cuando a la hora del arrastre el objeto se sale de la ruta donde puede
-			 *ser soltado o cuando finalmente elobjeto es soltado
-			 */
-			public void handle(DragEvent event) {
-				root.setStyle("-fx-background-color: white");
-				event.consume();
-			}
-		});
-		
-		//this method make the new one img1
-		root.setOnDragDropped(new EventHandler <DragEvent>(){
-			/**
-			 * Este metodo lo que hace es convertir la imagen
-			 * en un ImageView y lo agrega a la ruta donde se puede
-			 * observar la imagen
-			 */
-			public void handle(DragEvent event) {
-				Dragboard drag= event.getDragboard();
-				double x= event.getSceneX();
-				double y=event.getSceneY();
-				
-				ImageView nueva= new ImageView();
-				nueva.setImage(drag.getImage());
-				boolean succes= false; //indicador del proceso
-				
-				if(drag.hasImage()) {
-					Connection make= new Connection();
-					nueva.setOnMousePressed(MousePressedEventHandler);
-					nueva.setOnMouseDragged(MouseDraggedEventHandler);
-					
-					make.inicialize(nueva, root);
-					
-					
-					Imagelist.add(nueva);
-					
-					//especifica las posiciones X y Y del objeto en la nueva ruta 
-					nueva.setX(x - 55);
-					nueva.setY(y - 55);
-					root.getChildren().add(nueva);
-					
-					succes= true;
-					
-				}else {
-					succes=false;
+			});
+			
+			root.setOnDragOver(new EventHandler <DragEvent>() {
+				/**
+				 *Este metodo establece el lugar o la fuente en donde el nuevo
+				 *objeto puede ser soltado
+				 */
+				public void handle(DragEvent event) {
+					if(event.getGestureSource() != root && event.getDragboard().hasImage() 
+							&& event.getTarget()!= second) { //para saber donde se puede poner la imagen
+						
+						event.acceptTransferModes(TransferMode.COPY);
 					}
-				
-				//Indica si el drag and drop fue exitoso o no
-				event.setDropCompleted(succes);
-				
-				event.consume();
-			}
-		});
-		
-		image.setOnDragDone(new EventHandler <DragEvent>() {
-			public void handle(DragEvent event) {
-				if (event.getTransferMode()== TransferMode.COPY) {					
+					event.consume();
 				}
-				
-			}
-		});
+			});
+			
+			root.setOnDragEntered(new EventHandler <DragEvent>() {
+				/**
+				 *Metodo principalmente de disenno y lo que hace es cambiar el color de la ruta
+				 *donde el objeto puede ser soltado para guiar al usuario
+				 */
+				public void handle(DragEvent event) {
+					if(event.getGestureSource() != root && event.getDragboard().hasImage()) {
+						root.setStyle("-fx-background-color: #AAECE0");
+					}
+					event.consume();
+				}
+			});
+			
+			//crea la nueva imagen en el root
+			root.setOnDragExited(new EventHandler<DragEvent>() {
+				/**
+				 *Este metodo junto con el setOnDragEntered lo que hace es volver nuevamente
+				 *la pantalla donde el objeto puede ser soltado a su color original en dos ocasiones
+				 *La primera es cuando a la hora del arrastre el objeto se sale de la ruta donde puede
+				 *ser soltado o cuando finalmente elobjeto es soltado
+				 */
+				public void handle(DragEvent event) {
+					root.setStyle("-fx-background-color: white");
+					event.consume();
+				}
+			});
+			
+			//this method make the new one img1
+			root.setOnDragDropped(new EventHandler <DragEvent>(){
+				/**
+				 * Este metodo lo que hace es convertir la imagen
+				 * en un ImageView y lo agrega a la ruta donde se puede
+				 * observar la imagen
+				 */
+				public void handle(DragEvent event) {
+					Dragboard drag= event.getDragboard();
+					double x= event.getSceneX();
+					double y=event.getSceneY();
+					int nodoId;
+					
+					ImageView nueva= new ImageView();
+					nueva.setImage(drag.getImage());
+					boolean succes= false; //indicador del proceso
+					if(drag.hasImage()) {
+						Connection make= new Connection();
+						nueva.setOnMousePressed(MousePressedEventHandler);
+						nueva.setOnMouseDragged(MouseDraggedEventHandler);
+						
+						nueva.setId(Id); 
+						Nodes nodo;
+						Factory.newNode(nueva.getId()); //Crea el nuevo nodo en la lista enlazada
+						nodo= Lista.getNodo(Lista.getSize() - 1);
+						nodoId= Lista.getSize();
+						
+						System.out.println("Lista size " + Lista.getSize());
+						
+						Label nodonum= new Label(Integer.toString(nodoId));
+						make.inicialize(nueva, root);
+						//especifica las posiciones X y Y del objeto en la nueva ruta 
+						nueva.setX(x - 30);
+						nueva.setY(y - 30);
+						nodonum.setLayoutX(x);
+						nodonum.setLayoutY(y);
+
+						root.getChildren().addAll(nueva, nodonum);
+						
+						succes= true;
+						
+					}else {
+						succes=false;
+						}
+					
+					//Indica si el drag and drop fue exitoso o no
+					event.setDropCompleted(succes);
+					
+					event.consume();
+				}
+			});
+			
+			image.setOnDragDone(new EventHandler <DragEvent>() {
+				public void handle(DragEvent event) {
+					if (event.getTransferMode()== TransferMode.COPY) {					
+					}
+					
+				}
+			});
+		}
+		
 	}
 	
 	/**

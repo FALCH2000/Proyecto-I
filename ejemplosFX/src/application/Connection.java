@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
+import logic.*;
 
 
 public class Connection {
@@ -35,21 +36,27 @@ public class Connection {
 	        public void handle(MouseEvent t) {
 	            if (t.getSource().getClass()== ImageView.class) {
 	            	if(node1 == null) {
+	            		
 	            		PosX= t.getSceneX();
 		            	PosY= t.getSceneY();
 		            	System.out.println(t.getSceneX());
 		            	
 		            	node1= (ImageView)t.getSource();
+		            	//node1.getId();
+		            	System.out.println(node1.getId());
 	            	}
 	            	else if(node2 == null && t.getSource()!= node1) {
 	            		newPosX= t.getSceneX();
 		            	newPosY= t.getSceneY();
 		            	node2= (ImageView) t.getSource();
 		            	line= new Line(PosX, PosY, newPosX, newPosY);
-		            	//line= connect(node1, node2);
 		            	//System.out.println(t.getSource());
 		            	
+		            	line.setStrokeWidth(2);
+		                line.setStrokeLineCap(StrokeLineCap.BUTT);
+		                line.getStrokeDashArray().setAll(1.0, 1.0);
 		            	line.setStroke(randomColor());
+		            	System.out.println(node2.getId());
 		            	
 		            	root.getChildren().add(line);
 		            	
@@ -64,26 +71,11 @@ public class Connection {
 	        }
 	    };
 	    
-	    
-		     
-	
-	public static Line connect(ImageView node1, ImageView node2) {
-		line= new Line();
+	public static void validate(Pane root, ImageView node1, ImageView node2) {
 		
-		line.startXProperty().bind(node1.xProperty());
-        line.startYProperty().bind(node1.yProperty());
- 
-        line.endXProperty().bind(node2.xProperty());
-        line.endYProperty().bind(node2.yProperty());
- 
-        line.setStrokeWidth(2);
-        line.setStrokeLineCap(StrokeLineCap.BUTT);
-        line.getStrokeDashArray().setAll(1.0, 4.0);
-        
-        line.setStroke(randomColor());
-        
-		return line;
 	}
+		     
+
 	
 	public static Paint randomColor() {
         Random random = new Random();
