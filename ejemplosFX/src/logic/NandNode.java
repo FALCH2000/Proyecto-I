@@ -1,31 +1,33 @@
 package logic;
 
-public class NandNode implements Node{
+public class NandNode extends Nodes{
 	
-private static int result; //Este es el valor de salida el nodo AND
+	private Boolean val1;
+	private Boolean val2;
+	private boolean result; //Este es el valor de salida el nodo NAND
+	public Nodes next;
+	public Nodes prev;
+	public Nodes prev1;
+	public Nodes prev2; 
 	
 	/**
 	 * Constructor de la clase
-	 * privado porque para crear el nodo se deben hacer validaciones
-	 * en otro metodo publico que accede a el
+	 * Cuando se construye el objeto se instancia al constructor
 	 */
-	private NandNode() {
-		
+	public NandNode() {
+		this.next= null;
+		this.prev= null;
+		this.prev1= null;
+		this.prev2= null;
 	}
 	
-	
-	/**
-	 * para crear el nodo AND se debe acceder a este metodo
-	 * que hace las validaciones necesarias para que sea una entrada correcta
-	 * 
-	 */
-	
-	public void createNodeAnd(int a, int b) {
-		NandNode nand= new NandNode(); //llama al constructor
-		nand.setValue(a,b); //obtiene el valor resultante
-		
+	public void setValue1(boolean value) {
+		this.val1= value;
 	}
 	
+	public void setValue2(boolean value) {
+		this.val2= value;
+	}
 	
 	/**
 	 * Este metodo es el que convierte al valor de salida
@@ -36,23 +38,24 @@ private static int result; //Este es el valor de salida el nodo AND
 	 * @param value1
 	 * @param value2
 	 */
-	private void setValue(int value1, int value2) {
-		if((value1==1 || value1== 0) && (value2 ==1 || value2==0)) {
-			if(value1==1 && value2==1) {
-				result= 0;
+	private Boolean Result() {
+		try {
+			if(this.val1 && this.val2) {
+				this.result= false;
 			}else {
-				result= 1;
+				this.result= true;
 			}
-		} else {
-			result= 2;
+			return this.result;
+		}catch(Exception e) {
+			System.out.println("Hay un nodo nulo");
+			return null;
 		}
-	}
+			
+	} 
 
-	/**
-	 *Retorna el valor resultante del AND
-	 */
-	@Override
-	public int getValue(){
-		return result;
+
+	public Boolean getValue() {
+		Result();
+		return this.result;
 	}
 }

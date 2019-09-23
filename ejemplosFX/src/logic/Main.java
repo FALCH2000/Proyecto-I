@@ -5,10 +5,29 @@ import java.util.*;
 public class Main {
 
 	private static Scanner input;
+	private static AndNode and;
 
 	public static void main(String[] args) {
-		input = new Scanner(System.in);
 		
+			
+		
+		Factory.newNode("and");
+		Factory.newNode("nand");
+		Factory.newNode("xor");
+		Factory.newNode("nor");
+		Factory.newNode("not");
+		Factory.newNode("or");
+		System.out.println("Largo de la lista es: " + Lista.getSize());
+		System.out.println("El nodo en la posición 2 es: " + Lista.getNodo(0));
+		//Node temp= Lista.pos(1);
+		//temp.getValue1;
+		
+		//El problema que lanza la consola con un null pointer es
+		//Exception in thread "main" java.lang.NullPointerException
+		//          at logic.Main.main(Main.java:12)
+		
+		 
+		input = new Scanner(System.in);
 		try {
 			System.out.println("Enter the first num");
 			int a= input.nextInt();
@@ -27,5 +46,6 @@ public class Main {
 		
 		
 	}
+
 
 }

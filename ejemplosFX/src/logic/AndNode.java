@@ -9,63 +9,68 @@ package logic;
  *
  */
 
-public class AndNode implements Node{
+public class AndNode extends Nodes{
 	
-	private static int result; //Este es el valor de salida el nodo AND
-	
+	private Boolean val1;
+	private Boolean val2; 
+	private boolean result; //Este es el valor de salida el nodo AND
+	public boolean revision;
+	public Nodes next;
+	public Nodes prev;
+	public Nodes prev1;
+	public Nodes prev2; 
 	/**
-	 * este metodo es el constructor de la clase
-	 * es privado pues no se puede acceder directamente a este metodo
-	 * desde fuera para poder hacer validaciones
+	 * Este metodo es el constructor de la clase
+	 * y lo que hace es permitir entonces crear el nodo
+	 * Crea al objeto de la clase
 	 * 
 	 */
-	private AndNode() {
-		
-	}
-	
-	
-	/**
-	 * para crear el nodo AND se debe acceder a este metodo
-	 * que hace las validaciones necesarias para que sea una entrada correcta
-	 * 
-	 */
-	
-	public void createNodeAnd(int a, int b) {
-		AndNode and= new AndNode(); //llama al constructor
-		and.setValue(a,b); //obtiene el valor resultante
-		
-	}
-	
+	public AndNode() {
+		this.next=null;
+		this.prev=null;
+		this.prev1=null;
+		this.prev2= null;
+	}	
 	
 	/**
 	 * Este metodo es el que convierte al valor de salida
 	 * a partir de los valores entrantes
 	 * es privado para no poder acceder al setter desde fuera
-	 * desde fuera
 	 * 
 	 * @param value1
 	 * @param value2
 	 */
-	private void setValue(int value1, int value2) {
-		if((value1==1 || value1== 0) && (value2 ==1 || value2==0)) {
-			if(value1==1 && value2==1) {
-				result= 1;
+	public void setValue1(boolean value) {
+		this.val1= value;
+	}
+	
+	public void setValue2(boolean value) {
+		this.val2= value;
+	}
+	
+	private Boolean Result() {
+		try{
+			if(this.val1 && this.val2) {
+				this.result= true;
 			}else {
-				result= 0;
+				this.result= false;
 			}
-		} else {
-			result= 2;
+			return result;
+		}catch(Exception e) {
+			System.out.println("Exists a null Pointer");
+			return null;
 		}
 	}
-
-	/**
-	 *Retorna el valor resultante del AND
-	 */
-	@Override
-	public int getValue(){
-		return result;
+	
+	public Boolean getValue() {
+		Result();
+		return this.result;
 	}
 
+
 	
+	
+	
+
 	
 }
