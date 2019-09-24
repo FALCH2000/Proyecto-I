@@ -6,6 +6,8 @@ public class NotNode extends Nodes{
 	public Nodes next;
 	public Nodes prev;
 	public Nodes prev1;
+	public int NodeId;
+	public int connections;
 	
 	public NotNode() {
 		this.next= null;

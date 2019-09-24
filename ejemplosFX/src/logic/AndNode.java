@@ -19,6 +19,8 @@ public class AndNode extends Nodes{
 	public Nodes prev;
 	public Nodes prev1;
 	public Nodes prev2; 
+	public int NodeID;
+	public int connections;
 	/**
 	 * Este metodo es el constructor de la clase
 	 * y lo que hace es permitir entonces crear el nodo

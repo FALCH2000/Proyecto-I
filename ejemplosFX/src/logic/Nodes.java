@@ -7,10 +7,12 @@ package logic;
  */
 public abstract class Nodes {
 	
-	Nodes next;
-	Nodes prev;
-	Nodes prev1;
-	Nodes prev2;
+	public int connections;
+	public Nodes next;
+	public Nodes prev;
+	public Nodes prev1;
+	public Nodes prev2;
+	public int NodeID;
 	boolean revision;
 	abstract Boolean getValue();
 	

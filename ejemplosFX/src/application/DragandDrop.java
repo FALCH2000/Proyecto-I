@@ -31,6 +31,7 @@ public class DragandDrop {
 	protected static String Id = null;
 	static double PosX, PosY;
     static double newPosX, newPosY;
+    protected static int countId=0;
     
 	
 	/**
@@ -119,7 +120,7 @@ public class DragandDrop {
 					Dragboard drag= event.getDragboard();
 					double x= event.getSceneX();
 					double y=event.getSceneY();
-					int nodoId;
+					int nodoId; 
 					
 					ImageView nueva= new ImageView();
 					nueva.setImage(drag.getImage());
@@ -130,20 +131,25 @@ public class DragandDrop {
 						nueva.setOnMouseDragged(MouseDraggedEventHandler);
 						
 						nueva.setId(Id); 
-						Nodes nodo;
+						
 						Factory.newNode(nueva.getId()); //Crea el nuevo nodo en la lista enlazada
-						nodo= Lista.getNodo(Lista.getSize() - 1);
+						
+						nueva.setId(Id +"-" + Integer.toString(countId));
+						
 						nodoId= Lista.getSize();
 						
-						System.out.println("Lista size " + Lista.getSize());
+						countId += 1; //Aumenta para que el ID de la imagen vaya cambiando
+						
 						
 						Label nodonum= new Label(Integer.toString(nodoId));
+						
 						make.inicialize(nueva, root);
+						
 						//especifica las posiciones X y Y del objeto en la nueva ruta 
 						nueva.setX(x - 30);
 						nueva.setY(y - 30);
 						nodonum.setLayoutX(x);
-						nodonum.setLayoutY(y);
+						nodonum.setLayoutY(y + 3);
 
 						root.getChildren().addAll(nueva, nodonum);
 						

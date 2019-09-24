@@ -23,6 +23,8 @@ public class Connection {
 	private static Pane root;
 	private static ImageView node1=null;
 	private static ImageView node2= null; 
+	public static Nodes nodoNext;
+	public static Nodes nodoPrev;
 	
 	public void inicialize(ImageView image, Pane root) {
 		Connection.root= root;
@@ -35,30 +37,49 @@ public class Connection {
 	        @Override
 	        public void handle(MouseEvent t) {
 	            if (t.getSource().getClass()== ImageView.class) {
-	            	if(node1 == null) {
-	            		
+	            	if(node1 == null) {	            		
 	            		PosX= t.getSceneX();
 		            	PosY= t.getSceneY();
-		            	System.out.println(t.getSceneX());
 		            	
 		            	node1= (ImageView)t.getSource();
-		            	//node1.getId();
-		            	System.out.println(node1.getId());
+		            	//System.out.println(node1.getId());
+		            
+		            	String parts[]= node1.getId().split("-");
+		            	int count= Integer.parseInt(parts[1]);
+		            	System.out.println("La posición del nodo que acaba de clickear es: " +count);
+		            	nodoNext= Lista.getNodo(count);	
+		            	
 	            	}
 	            	else if(node2 == null && t.getSource()!= node1) {
+	            		
+	            		node2= (ImageView) t.getSource();
+	            		String parts[]= node2.getId().split("-");
+		            	int count= Integer.parseInt(parts[1]);
+		            	//nodoNext= Lista.getNodo(count); CASI ME LA PELO
+		            	
 	            		newPosX= t.getSceneX();
 		            	newPosY= t.getSceneY();
-		            	node2= (ImageView) t.getSource();
-		            	line= new Line(PosX, PosY, newPosX, newPosY);
-		            	//System.out.println(t.getSource());
+		       
+
 		            	
-		            	line.setStrokeWidth(2);
-		                line.setStrokeLineCap(StrokeLineCap.BUTT);
-		                line.getStrokeDashArray().setAll(1.0, 1.0);
-		            	line.setStroke(randomColor());
-		            	System.out.println(node2.getId());
+		            	nodoPrev= Lista.getNodo(count);
+		            
 		            	
-		            	root.getChildren().add(line);
+		            	if(Validation.validate(node1, node2, nodoNext, nodoPrev)) {
+		            		
+		            		line= new Line(PosX, PosY, newPosX, newPosY);
+		            		line.setStrokeWidth(2);
+			                line.setStrokeLineCap(StrokeLineCap.BUTT);
+			                line.getStrokeDashArray().setAll(1.0, 1.0);
+			            	line.setStroke(randomColor());
+			            	//System.out.println(node2.getId());
+			            	
+			            	root.getChildren().add(line);
+		            	} 
+		            	
+		            	
+		            	
+		            	
 		            	
 		            	node1= null;
 		            	node2= null;

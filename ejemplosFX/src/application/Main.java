@@ -73,6 +73,7 @@ public class Main extends Application {
 		img1.setId("and");
 		
 		
+		
 		Image imagen2= new Image(getClass().getResource("nand.png").toExternalForm());
 		ImageView img2= new ImageView(imagen2);
 		img2.setId("nand");

@@ -8,6 +8,8 @@ public class OrNode extends Nodes{
 	public Nodes prev;
 	public Nodes prev1;
 	public Nodes prev2; 
+	public int NodeID;
+	public int connections;
 	
 	public OrNode() {
 		this.next= null;
