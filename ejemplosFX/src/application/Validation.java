@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.Nodes;
@@ -53,6 +55,10 @@ public class Validation {
 		});
 		prim1.setLayoutX(20);
 		prim1.setLayoutY(40);
+		prim1.setStyle("-fx-background-color: linear-gradient(#6712C2, #985DD6);\n" + 
+				"    -fx-background-radius: 30;\n" + 
+				"    -fx-background-insets: 0;\n" + 
+				"    -fx-text-fill: white;");
 		
 		Button prim2= new Button("Nodo " + part2);
 		prim2.setOnAction(e -> {
@@ -60,6 +66,10 @@ public class Validation {
 		});
 		prim2.setLayoutX(90);
 		prim2.setLayoutY(40);
+		prim2.setStyle("-fx-background-color: linear-gradient(#0027AD, #3461FE);\n" + 
+				"    -fx-background-radius: 30;\n" + 
+				"    -fx-background-insets: 0;\n" + 
+				"    -fx-text-fill: white;");
 		
 		Label SegNodo= new Label("Elija el nodo al que llega el valor: ");
 		SegNodo.setLayoutX(20);
@@ -75,6 +85,10 @@ public class Validation {
 		});
 		seg1.setLayoutX(20);
 		seg1.setLayoutY(100);
+		seg1.setStyle("-fx-background-color: linear-gradient(#6712C2, #985DD6);\n" + 
+				"    -fx-background-radius: 30;\n" + 
+				"    -fx-background-insets: 0;\n" + 
+				"    -fx-text-fill: white;");
 		
 		Button seg2= new Button("Nodo " + part2);
 		seg2.setOnAction(e -> {
@@ -84,16 +98,19 @@ public class Validation {
 		});
 		seg2.setLayoutX(90);
 		seg2.setLayoutY(100);
+		seg2.setStyle("-fx-background-color: linear-gradient(#0027AD, #3461FE);\n" + 
+				"    -fx-background-radius: 30;\n" + 
+				"    -fx-background-insets: 0;\n" + 
+				"    -fx-text-fill: white;");
 		
 		Button cancel= new Button("Cancelar");
 		cancel.setOnAction(e -> stage.close());
 		cancel.setLayoutX(50);
 		cancel.setLayoutY(170);
-		
-		//Lo que respect a la logica
-		
-		
-
+		cancel.setStyle("-fx-background-color: linear-gradient(#ff5400, #be1d00);\n" + 
+				"    -fx-background-radius: 30;\n" + 
+				"    -fx-background-insets: 0;\n" + 
+				"    -fx-text-fill: white;");
 		
 		root.setPrefSize(300, 200);
 		
@@ -116,13 +133,18 @@ public class Validation {
 			System.out.println(nodoNext.connections);
 			
 			if(nodoNext== nodoPrev) {
-				System.out.println("opcion 1");
 				answer=false;
+				AlertBox("Misma compuerta asignada \n"
+						+ "La compuerta asignada de entrada y de salida \n"
+						+ "corresponden a la misma compuerta");
+				
 			}else if(nodoNext.connections >= 2) {
-				System.out.println("opcion 2");
 				answer= false;
+				AlertBox("Más de dos compuertas asignadas \n"
+						+ "La compuerta elegida como nodo al que llega el valor \n"
+						+ "ya tiene dos compuertas de entrada asignadas");
+				
 			}else {
-				System.out.println("opcion 3");
 				if (nodoNext.connections==0) {
 					nodoNext.prev1= nodoPrev;
 					nodoNext.connections +=1;
@@ -135,5 +157,39 @@ public class Validation {
 			}
 		}
 		return answer;
+	}
+	
+	public static void AlertBox(String text) {
+		Stage stage= new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		Pane root= new Pane();
+		Scene scene= new Scene(root);
+		
+		Label label1= new Label(text);
+		label1.setLayoutX(30);
+		label1.setLayoutY(40);
+		
+		Label label2= new Label("ERROR");
+		label2.setTextFill(Color.INDIANRED);
+		label2.setLayoutX(80);
+		label2.setLayoutY(10);
+		label2.setFont(new Font("Arial", 40));
+		
+		Button ok= new Button("Entendido");
+		ok.setOnAction(e -> stage.close());
+		ok.setLayoutX(100);
+		ok.setLayoutY(80);
+		ok.setStyle("-fx-background-color: linear-gradient(#ff5400, #be1d00);\n" + 
+				"    -fx-background-radius: 30;\n" + 
+				"    -fx-background-insets: 0;\n" + 
+				"    -fx-text-fill: white;");
+		
+		root.setPrefSize(400, 150);
+		
+		root.getChildren().addAll(label1, ok, label2);
+		
+		root.setStyle("-fx-background-color: white");
+		stage.setScene(scene);
+		stage.showAndWait();
 	}
 }

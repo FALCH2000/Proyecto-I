@@ -1,5 +1,13 @@
 package logic;
 
+/**
+ * @author fatimaleiva
+ *Esta clase es la factoria, forma parte del patron de disenno
+ *y lo que hace es crear los nodos de acuerdo al tipo requerido.
+ *Es de gran ayuda porque asi se llama la factoria desde la interfaz y esta crea
+ *el nodo y lo annade a la lista enlazada, esto minimiza el trabajo que debe realizar 
+ *el cliente desde interfaz.
+ */
 public class Factory {
 	
 	public static void newNode(String nodo) {

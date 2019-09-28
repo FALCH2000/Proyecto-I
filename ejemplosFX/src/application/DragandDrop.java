@@ -56,7 +56,6 @@ public class DragandDrop {
 					
 					Dragboard drag= image.startDragAndDrop(TransferMode.COPY);
 					
-					//System.out.println(image.getId());
 					//Anadir el contenido de la imagen a copiar al nuevo objeto
 					ClipboardContent content= new ClipboardContent();
 					content.putImage(image.getImage());

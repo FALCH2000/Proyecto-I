@@ -13,7 +13,7 @@ public class AndNode extends Nodes{
 	
 	private Boolean val1;
 	private Boolean val2; 
-	private boolean result; //Este es el valor de salida el nodo AND
+	private Boolean result; //Este es el valor de salida el nodo AND
 	public boolean revision;
 	public Nodes next;
 	public Nodes prev;
@@ -27,6 +27,7 @@ public class AndNode extends Nodes{
 	 * Crea al objeto de la clase
 	 * 
 	 */
+	
 	public AndNode() {
 		this.next=null;
 		this.prev=null;
@@ -66,13 +67,9 @@ public class AndNode extends Nodes{
 	
 	public Boolean getValue() {
 		Result();
+		if(Result()==null) {
+			return null;
+		}
 		return this.result;
 	}
-
-
-	
-	
-	
-
-	
 }

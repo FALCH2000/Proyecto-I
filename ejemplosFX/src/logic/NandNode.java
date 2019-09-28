@@ -4,7 +4,7 @@ public class NandNode extends Nodes{
 	
 	private Boolean val1;
 	private Boolean val2;
-	private boolean result; //Este es el valor de salida el nodo NAND
+	private Boolean result; //Este es el valor de salida el nodo NAND
 	public Nodes next;
 	public Nodes prev;
 	public Nodes prev1;
@@ -58,6 +58,9 @@ public class NandNode extends Nodes{
 
 	public Boolean getValue() {
 		Result();
+		if(Result()==null) {
+			return null;
+		}
 		return this.result;
 	}
 }

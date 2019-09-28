@@ -23,6 +23,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	
+	/**
+	 *Este metodo es el start del programa.
+	 *Lo que hace es iniciar la parte gráfica del programa,
+	 *inicializando las clases que se llamen dentro de este.
+	 *
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		Stage principal;
@@ -36,24 +42,13 @@ public class Main extends Application {
 		
 		VBox second= new VBox(75);
 		Canvas canvas1= new Canvas(100,100);
-		
+				
 		second.setLayoutX(1000);
 		second.setLayoutY(0);
 		second.setAlignment(Pos.CENTER);
 		
-		Button save= new Button("Save");
-		save.setLayoutX(100);
-		save.setLayoutY(12);
-		save.setStyle("-fx-background-color: \n" + 
-				"        #c3c4c4,\n" + 
-				"        linear-gradient(#d6d6d6 50%, white 100%),\n" + 
-				"        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);\n" + 
-				"    -fx-background-radius: 30;\n" + 
-				"    -fx-background-insets: 0,1,1;\n" + 
-				"    -fx-text-fill: black;\n" + 
-				"    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );");
 		
-		Button show= new Button("Show");
+		Button show= new Button("Mostrar Resultado");
 		show.setLayoutX(300);
 		show.setLayoutY(12);
 		show.setStyle("-fx-background-color: \n" + 
@@ -64,8 +59,21 @@ public class Main extends Application {
 				"    -fx-background-insets: 0,1,1;\n" + 
 				"    -fx-text-fill: black;\n" + 
 				"    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );");
+		show.setOnAction(e -> Result.ShowResult());
 		
-
+		Button result= new Button("Ingresar resultados");
+		result.setLayoutX(500);
+		result.setLayoutY(12);
+		result.setOnAction(e -> Result.setResult());
+		result.setStyle("-fx-background-color: \n" + 
+				"        #c3c4c4,\n" + 
+				"        linear-gradient(#d6d6d6 50%, white 100%),\n" + 
+				"        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);\n" + 
+				"    -fx-background-radius: 30;\n" + 
+				"    -fx-background-insets: 0,1,1;\n" + 
+				"    -fx-text-fill: black;\n" + 
+				"    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );");
+		
 		
 		//Cargar las imágenes, fue la única manera en que funcionó
 		Image imagen1= new Image(getClass().getResource("and.png").toExternalForm());
@@ -94,7 +102,6 @@ public class Main extends Application {
 		ImageView img6= new ImageView(imagen6);
 		img6.setId("xor");
 		
-		//ESTA IMAGEN NO SE VE HAY QUE REDIMENSIONAR TODAS LAS IMAGENES
 		Image imagen7= new Image(getClass().getResource("not.png").toExternalForm());
 		ImageView img7= new ImageView(imagen7);
 		img7.setId("not");
@@ -114,7 +121,7 @@ public class Main extends Application {
 		
 		
 		//Disenno final del stage principal 
-		first.getChildren().addAll(save, show);
+		first.getChildren().addAll(show, result);
 		
 		second.getChildren().addAll(img1,img2, img3, img4, img5, img6, img7, canvas1);
 		

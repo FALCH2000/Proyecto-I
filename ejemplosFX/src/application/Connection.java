@@ -42,11 +42,9 @@ public class Connection {
 		            	PosY= t.getSceneY();
 		            	
 		            	node1= (ImageView)t.getSource();
-		            	//System.out.println(node1.getId());
 		            
 		            	String parts[]= node1.getId().split("-");
 		            	int count= Integer.parseInt(parts[1]);
-		            	System.out.println("La posición del nodo que acaba de clickear es: " +count);
 		            	nodoNext= Lista.getNodo(count);	
 		            	
 	            	}
@@ -55,13 +53,10 @@ public class Connection {
 	            		node2= (ImageView) t.getSource();
 	            		String parts[]= node2.getId().split("-");
 		            	int count= Integer.parseInt(parts[1]);
-		            	//nodoNext= Lista.getNodo(count); CASI ME LA PELO
 		            	
 	            		newPosX= t.getSceneX();
 		            	newPosY= t.getSceneY();
-		       
-
-		            	
+		       		            	
 		            	nodoPrev= Lista.getNodo(count);
 		            
 		            	
@@ -70,9 +65,8 @@ public class Connection {
 		            		line= new Line(PosX, PosY, newPosX, newPosY);
 		            		line.setStrokeWidth(2);
 			                line.setStrokeLineCap(StrokeLineCap.BUTT);
-			                line.getStrokeDashArray().setAll(1.0, 1.0);
+			                line.getStrokeDashArray().setAll(1.0, 2.0);
 			            	line.setStroke(randomColor());
-			            	//System.out.println(node2.getId());
 			            	
 			            	root.getChildren().add(line);
 		            	} 
@@ -91,11 +85,7 @@ public class Connection {
 	            }
 	        }
 	    };
-	    
-	public static void validate(Pane root, ImageView node1, ImageView node2) {
-		
-	}
-		     
+	      
 
 	
 	public static Paint randomColor() {

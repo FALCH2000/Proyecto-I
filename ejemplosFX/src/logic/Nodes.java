@@ -14,6 +14,8 @@ public abstract class Nodes {
 	public Nodes prev2;
 	public int NodeID;
 	boolean revision;
-	abstract Boolean getValue();
+	public abstract Boolean getValue();
+	public abstract void setValue1(boolean value);
+	public abstract void setValue2(boolean value);
 	
 }

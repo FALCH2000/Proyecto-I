@@ -2,7 +2,7 @@ package logic;
 
 public class NotNode extends Nodes{
 	private Boolean val1;
-	private boolean result; //Este es el valor de salida el nodo NOT
+	private Boolean result; //Este es el valor de salida el nodo NOT
 	public Nodes next;
 	public Nodes prev;
 	public Nodes prev1;
@@ -17,6 +17,11 @@ public class NotNode extends Nodes{
 	
 	public void setValue1(boolean value) {
 		this.val1= value;
+	}
+	
+	
+	public void setValue2(boolean value) {
+		//Hay que añadir el metodo, pero no utilizarlo
 	}
 	
 	/**
@@ -45,7 +50,11 @@ public class NotNode extends Nodes{
 
 	public Boolean getValue() {
 		Result();
+		if(Result()==null) {
+			return null;
+		}
 		return this.result;
 	}
+
 
 }

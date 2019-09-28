@@ -3,7 +3,7 @@ package logic;
 public class OrNode extends Nodes{
 	private Boolean val1;
 	private Boolean val2;
-	private boolean result; //Este es el valor de salida el nodo OR
+	private Boolean result; //Este es el valor de salida el nodo OR
 	public Nodes next;
 	public Nodes prev;
 	public Nodes prev1;
@@ -52,10 +52,12 @@ public class OrNode extends Nodes{
 
 	public Boolean getValue() {
 		Result();
+		if(Result()==null) {
+			return null;
+		}
 		return this.result;
 	}
 
 
 
 }
-

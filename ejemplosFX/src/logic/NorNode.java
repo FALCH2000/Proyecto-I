@@ -3,7 +3,7 @@ package logic;
 public class NorNode extends Nodes{
 	private Boolean val1;
 	private Boolean val2;
-	private boolean result; //Este es el valor de salida el nodo AND
+	private Boolean result; //Este es el valor de salida el nodo AND
 	public Nodes next;
 	public Nodes prev;
 	public Nodes prev1;
@@ -50,6 +50,9 @@ public class NorNode extends Nodes{
 
 	public Boolean getValue() {
 		Result();
+		if(Result()==null) {
+			return null;
+		}
 		return this.result;
 	}
 }
