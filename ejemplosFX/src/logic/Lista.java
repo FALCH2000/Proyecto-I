@@ -40,4 +40,10 @@ public class Lista {
 		return temp;
 	}
 	
+	public static void deleteList() {
+		Lista.first=null;
+		Lista.last=null;
+		Lista.size=0;
+	}
+	
 }

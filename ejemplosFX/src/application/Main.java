@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import logic.Lista;
 
 
 /**
@@ -49,7 +50,7 @@ public class Main extends Application {
 		
 		
 		Button show= new Button("Mostrar Resultado");
-		show.setLayoutX(300);
+		show.setLayoutX(250);
 		show.setLayoutY(12);
 		show.setStyle("-fx-background-color: \n" + 
 				"        #c3c4c4,\n" + 
@@ -62,10 +63,28 @@ public class Main extends Application {
 		show.setOnAction(e -> Result.ShowResult());
 		
 		Button result= new Button("Ingresar resultados");
-		result.setLayoutX(500);
+		result.setLayoutX(450);
 		result.setLayoutY(12);
 		result.setOnAction(e -> Result.setResult());
 		result.setStyle("-fx-background-color: \n" + 
+				"        #c3c4c4,\n" + 
+				"        linear-gradient(#d6d6d6 50%, white 100%),\n" + 
+				"        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);\n" + 
+				"    -fx-background-radius: 30;\n" + 
+				"    -fx-background-insets: 0,1,1;\n" + 
+				"    -fx-text-fill: black;\n" + 
+				"    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );");
+		
+		Button delete= new Button("Borrar circuito");
+		delete.setLayoutX(650);
+		delete.setLayoutY(12);
+		delete.setOnAction(e -> {
+			root.getChildren().clear();
+			Lista.deleteList();
+			root.getChildren().addAll(second, first);
+			
+		});
+		delete.setStyle("-fx-background-color: \n" + 
 				"        #c3c4c4,\n" + 
 				"        linear-gradient(#d6d6d6 50%, white 100%),\n" + 
 				"        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);\n" + 
@@ -121,7 +140,7 @@ public class Main extends Application {
 		
 		
 		//Disenno final del stage principal 
-		first.getChildren().addAll(show, result);
+		first.getChildren().addAll(show, result, delete);
 		
 		second.getChildren().addAll(img1,img2, img3, img4, img5, img6, img7, canvas1);
 		
